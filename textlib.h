@@ -12,4 +12,4 @@
 #define MAINMENU_OPTION_0 "\t\t\t[0] Sair do programa\n"
 #define MAINMENU_USER_OPTION "\t\t\tDigite a opção que deseja: "
 
-void printMainMenu(){};
+void printMainMenu();

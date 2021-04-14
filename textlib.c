@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "textlib.h"
 
-void printMainMenu(){
+void printMainMenu() {
     printf(PROGRAM_TITLE);
     printf(MAINMENU_TITLE);
     printf(MAINMENU_TITLE_SEPARADOR);
