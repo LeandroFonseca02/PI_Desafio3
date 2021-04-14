@@ -1,0 +1,15 @@
+#define PROGRAM_TITLE "========== Agenda de Contatos ==========\n\n\n\n"
+#define MAINMENU_TITLE "\t\t\t\t   Menu Principal\n"
+#define MAINMENU_TITLE_SEPARADOR "\t\t\t============================\n"
+#define MAINMENU_OPTION_1 "\t\t\t[1] Criar novo contato\n"
+#define MAINMENU_OPTION_2 "\t\t\t[2] Consulta sequencial\n"
+#define MAINMENU_OPTION_3 "\t\t\t[3] Lista de contatos\n"
+#define MAINMENU_OPTION_4 "\t\t\t[4] Consulta por atributos\n"
+#define MAINMENU_OPTION_5 "\t\t\t[5] Modificar contatos\n"
+#define MAINMENU_OPTION_6 "\t\t\t[6] Remover contato\n"
+#define MAINMENU_OPTION_7 "\t\t\t[7] Apagar lista de contatos\n"
+#define MAINMENU_OPTION_8 "\t\t\t[8] Sobre o programa\n"
+#define MAINMENU_OPTION_0 "\t\t\t[0] Sair do programa\n"
+#define MAINMENU_USER_OPTION "\t\t\tDigite a opção que deseja: "
+
+void printMainMenu(){};
