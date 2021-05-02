@@ -4,11 +4,13 @@
 //Opção 1 - Completamente feito
 //Opção 2 - Completamente feito
 //Opção 3 - Completamente feito
-//Opção 4 -
+//Opção 4 - Completamente feito
 //Opção 5 -
 //Opção 6 -
 //Opção 7 -
 //Opção 8 - Fazer qualquer coisa
+
+//Fazer ajustes graficos
 
 
 
@@ -54,10 +56,10 @@ int main()
                 listaContatos(p2array, intContactCounter);
                 break;
 
-//            case '4':
-//                consultaAtributos();
-//                break;
-//
+            case '4':
+                consultaAtributos(p2array,intContactCounter);
+                break;
+
 //            case '5':
 //                modificarContato();
 //                break;

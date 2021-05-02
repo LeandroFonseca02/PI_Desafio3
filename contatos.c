@@ -80,10 +80,6 @@ void writeContactFile(struct contato *p2array, int intContactCounter){
 
 
 
-
-
-
-
 //----->Funçoes de manipulação de contatos
 
 
@@ -283,99 +279,57 @@ void listaContatos(struct contato *p2array, int intContactCounter){
 
 }
 
-//void consultaAtributos(){
-//
-//    int intFound = 0, intLength = 20, intCounter = 0, intChoice = 0;
-//    FILE *fp;
-//
-//    unsigned char chrSearched[20], chrFinded[20];
-//
-////    system("clear");
-//    clearArray(20,chrSearched);
-//    clearArray(20, chrFinded);
-//
-//    intFound = 0;
-//
-//    printOption4Menu();
-//    fflush(stdin);
-//
-//    scanf("%d", &intChoice);
-//    fflush(stdin);
-//
-//    switch (intChoice) {
-//        case 1:
-//            consultaNome();
-//            break;
-//        case 2:
-//            break;
-//        case 3:
-//            break;
-//        case 4:
-//            break;
-//        case 5:
-//            break;
-//        case 6:
-//            break;
-//        default:
-//            break;
-//    }
-//
-//    fp = fopen("leandro.dat", "r");
-//
-//    system("clear");
-//
-//    printf("\n\n..::Resultado da pesquisa de: ");
-//    printUnsCharString(20,chrSearched);
-//    printf("\n===================================================\n");
-//
-//    while (fread(&lista, sizeof(lista), 1, fp) == 1) {
-//
-//        clearArray(20, chrFinded);
-//
-//        for (intCounter = 0; intCounter <= intLength; intCounter++){
-//            if(chrSearched[intCounter] != '\0'){
-//                chrFinded[intCounter] = lista.chrNome[intCounter];
-//            }else{
-//                intCounter = intLength + 1;
-//            }
-//        }
-//
-//        chrFinded[intLength] = '\0';
-//
-//        if (memcmp(chrSearched, chrFinded, 20) == 0) {
-//
-//            printf("\n\nNome\t: ");
-//            printUnsCharString(20,lista.chrNome);
-//            printf("\nNumero de Telefone\t: ");
-//            printUnsCharString(10,lista.chrTelefone);
-//            printf("\nMorada\t: ");
-//            printUnsCharString(30,lista.chrMorada);
-//            printf("\nCodigo Postal\t: ");
-//            printUnsCharString(10,lista.chrCodPostal);
-//            printf("\nCidade\t: ");
-//            printUnsCharString(20,lista.chrCidade);
-//            printf("\nPaís\t: ");
-//            printUnsCharString(20,lista.chrPais);
-//            printf("\n");
-//            intFound++;
-//        }
-//
-//    }
-//
-//    if (intFound == 0){
-//        printf("\n..::Nenhuma correspondencia encontrada!");
-//    }
-//
-//    else{
-//        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
-//    }
-//
-//    clsKeyboardBuffer();
-//    getche();
-//
-//    fclose(fp);
-//}
-//
+void consultaAtributos(struct contato *p2array, int intContactCounter){
+
+    int intFound = 0, intLength = 20, intCounter = 0, intChoice = 0;
+
+    system("clear");
+    clsKeyboardBuffer();
+
+    if(p2array == NULL){
+        printf("Não existem contatos para consultar!!");
+        fflush(stdin);
+        getche();
+        return;
+    }
+
+
+    intFound = 0;
+    printOption4Menu();
+    fflush(stdin);
+
+    scanf("%d", &intChoice);
+    fflush(stdin);
+
+    switch (intChoice) {
+        case 1:
+            consultaNome(p2array, intContactCounter);
+            break;
+        case 2:
+            consultaTelefone(p2array, intContactCounter);
+            break;
+        case 3:
+            consultaMorada(p2array, intContactCounter);
+            break;
+        case 4:
+            consultaCodPostal(p2array, intContactCounter);
+            break;
+        case 5:
+            consultaCidade(p2array, intContactCounter);
+            break;
+        case 6:
+            consultaPais(p2array, intContactCounter);
+            break;
+        default:
+            printf("\nOpção inválida!");
+            printf("\n--->Clique em qq tecla para voltar ao menu");
+            fflush(stdin);
+            getche();
+            break;
+    }
+
+}
+
 //void modificarContato(){
 //
 //    FILE *fp, *ft;
@@ -567,7 +521,7 @@ void sobrePrograma(){
 
 
 
-//Funções de validação de dados
+//----->Funções de validação de dados
 
 //Percorre um array e poe o valores de todos os valores a 0
 void clearArray(int intStringLength, unsigned char chrArray[intStringLength]){
@@ -1068,71 +1022,694 @@ void paisContato(int intContactCounter,struct contato *p2array,int intStringLeng
 
 
 
+//----->Funções de consulta por atributos
 
 
-//Funçoes de manipulação de contatos
+void consultaNome(struct contato *p2array, int intContactCounter){
+    int intFound = 0, intStringLength = 20, intStringPosition = 0,intCounter = 0;
 
-//void consultaNome(){
-//    int intFound = 0, intLength = 20, intCounter = 0;
-//    FILE *fp;
-//
-//    unsigned char chrSearched[20], chrFinded[20];
-//
-//    fflush(stdin);
-//    nomeContato(intLength,chrSearched);
-//
-//    fp = fopen("leandro.dat", "r");
-//
-//    system("clear");
-//
-//    printf("\n\n..::Resultado da pesquisa de: ");
-//    printUnsCharString(20,chrSearched);
-//    printf("\n===================================================\n");
-//
-//    while (fread(&lista, sizeof(lista), 1, fp) == 1) {
-//
-//        clearArray(20, chrFinded);
-//
-//        for (intCounter = 0; intCounter <= intLength; intCounter++){
-//            if(chrSearched[intCounter] != '\0'){
-//                chrFinded[intCounter] = lista.chrNome[intCounter];
-//            }else{
-//                intCounter = intLength + 1;
-//            }
-//        }
-//
-//        chrFinded[intLength] = '\0';
-//
-//        if (memcmp(chrSearched, chrFinded, 20) == 0) {
-//
-//            printf("\n\nNome\t: ");
-//            printUnsCharString(20,lista.chrNome);
-//            printf("\nNumero de Telefone\t: ");
-//            printUnsCharString(10,lista.chrTelefone);
-//            printf("\nMorada\t: ");
-//            printUnsCharString(30,lista.chrMorada);
-//            printf("\nCodigo Postal\t: ");
-//            printUnsCharString(10,lista.chrCodPostal);
-//            printf("\nCidade\t: ");
-//            printUnsCharString(20,lista.chrCidade);
-//            printf("\nPaís\t: ");
-//            printUnsCharString(20,lista.chrPais);
-//            printf("\n");
-//            intFound++;
-//        }
-//
-//    }
-//
-//    if (intFound == 0){
-//        printf("\n..::Nenhuma correspondencia encontrada!");
-//    }
-//
-//    else{
-//        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
-//    }
-//
-//    clsKeyboardBuffer();
-//    getche();
-//
-//    fclose(fp);
-//}
+    unsigned char chrSearched[20];
+
+    fflush(stdin);
+
+    unsigned char chrUserInput = 0;
+    unsigned char *chrUserData = chrSearched;
+
+    clearArray(intStringLength,chrSearched);    //Limpa o array
+
+    clsKeyboardBuffer();
+
+    system("clear");
+    printf("Nome: ");
+    printUnsCharString(20,chrSearched);
+
+    //Entrada de dados
+    do {
+        chrUserInput = getche();
+        //Letras Minúsculas + espaço +  Letras Maiusculas
+        if ((chrUserInput > 96 && chrUserInput < 123) || (chrUserInput == 32) ||(chrUserInput > 64 && chrUserInput < 91)) {
+            chrUserData[intStringPosition] = chrUserInput;
+            chrUserData[intStringPosition+1] = 0;
+            intStringPosition++;
+        }
+            //Letras portuguesas minusculas linux
+        else if(chrUserInput == 195){
+            chrUserInput = linuxPTchar();
+            if((chrUserInput > 223 && chrUserInput < 255) || (chrUserInput > 191 && chrUserInput < 222)){
+                chrUserData[intStringPosition] = chrUserInput;
+                chrUserData[intStringPosition+1] = '\0';
+                intStringPosition++;
+            }else{
+                chrUserData[intStringPosition] = '\0';
+                system("clear");
+                printf("Nome: ");
+                printUnsCharString(20,chrSearched);
+            }
+
+        }
+            //Tecla de Enter
+        else if(chrUserInput == 10){
+            intStringPosition = intStringLength+1;
+        }
+            //Tecla de BackSpace
+        else if(chrUserInput == 127){
+            chrUserData[intStringPosition] = '\0';
+            intStringPosition--;
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("Nome: ");
+            printUnsCharString(20,chrSearched);
+        }else{
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("Nome: ");
+            printUnsCharString(20,chrSearched);
+        }
+    } while (intStringPosition < intStringLength);
+
+    printf("\n\nDeseja pesquisar pelo nome: ");
+    printUnsCharString(20,chrSearched);
+    fflush(stdin);
+    getche();
+
+    system("clear");
+
+    printf("\n\n..::Resultado da pesquisa de: ");
+    printUnsCharString(20,chrSearched);
+    printf("\n===================================================\n");
+
+
+
+    //Percorrer contatos na memória
+    for(intCounter = 0; intCounter < intContactCounter; intCounter++){
+
+        //Comparar se a pesquisa é igual
+        if(memcmp(chrSearched, p2array[intCounter].chrNome, 20) == 0){
+
+            printf("\n\n\t\tNome: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrNome);
+            printf("\n\t\tTelefone: \t");
+            printUnsCharString(10, p2array[intCounter].chrTelefone);
+            printf("\n\t\tMorada: \t");
+            printUnsCharString(30, p2array[intCounter].chrMorada);
+            printf("\n\t\tCódigo Postal: \t");
+            printUnsCharString(10, p2array[intCounter].chrCodPostal);
+            printf("\n\t\tCidade: \t");
+            printUnsCharString(20, p2array[intCounter].chrCidade);
+            printf("\n\t\tPaís: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrPais);
+            printf("\n");
+            printf("\n===================================================\n");
+            intFound++;
+
+
+        }
+    }
+
+    if (intFound == 0){
+        printf("\n..::Nenhuma correspondencia encontrada!");
+    }
+
+    else{
+        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
+
+        if(intFound >= 2){
+            printf("\n\n..::ATENÇÃO: Existem %d contatos com o mesmo nome!!", intFound);
+            printf("\n..::Não deve criar contatos com exatamente os mesmos paramêtros");
+        }
+
+    }
+
+    fflush(stdin);
+    printf("\n\n Pressiona qq tecla para sair: ");
+    getche();
+}
+
+void consultaTelefone(struct contato *p2array, int intContactCounter){
+    int intFound = 0, intStringLength = 10, intStringPosition = 0,intCounter = 0;
+
+    unsigned char chrSearched[10];
+
+    fflush(stdin);
+
+    unsigned char chrUserInput = 0;
+    unsigned char *chrUserData = chrSearched;
+
+    clearArray(intStringLength,chrSearched);    //Limpa o array
+
+    clsKeyboardBuffer();
+
+    system("clear");
+    printf("Telefone: ");
+    printUnsCharString(10,chrSearched);
+
+    //Entrada de dados
+    do {
+        chrUserInput = getche();
+
+        //Numeros Inteiros
+        if (chrUserInput > 47 && chrUserInput < 58) {
+            chrUserData[intStringPosition] = chrUserInput;
+            intStringPosition++;
+        }
+            //Letras portuguesas linux
+        else if(chrUserInput == 195){
+            chrUserInput = linuxPTchar();
+
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nTelefone: ");
+            printUnsCharString(10,chrSearched);
+
+        }
+            //Tecla de Enter
+        else if(chrUserInput == 10 || chrUserInput == 13){
+            intStringPosition = intStringLength+1;
+        }
+            //Tecla de BackSpace
+        else if(chrUserInput == 127){
+            intStringPosition--;
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nTelefone: ");
+            printUnsCharString(10,chrSearched);
+        }else{
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nTelefone: ");
+            printUnsCharString(10,chrSearched);
+        }
+    }while (intStringPosition < intStringLength);
+
+    printf("\n\nDeseja pesquisar pelo Telefone: ");
+    printUnsCharString(10,chrSearched);
+    fflush(stdin);
+    getche();
+
+    system("clear");
+
+    printf("\n\n..::Resultado da pesquisa de: ");
+    printUnsCharString(10,chrSearched);
+    printf("\n===================================================\n");
+
+
+
+    //Percorrer contatos na memória
+    for(intCounter = 0; intCounter < intContactCounter; intCounter++){
+
+        //Comparar se a pesquisa é igual
+        if(memcmp(chrSearched, p2array[intCounter].chrTelefone, 10) == 0){
+
+            printf("\n\n\t\tNome: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrNome);
+            printf("\n\t\tTelefone: \t");
+            printUnsCharString(10, p2array[intCounter].chrTelefone);
+            printf("\n\t\tMorada: \t");
+            printUnsCharString(30, p2array[intCounter].chrMorada);
+            printf("\n\t\tCódigo Postal: \t");
+            printUnsCharString(10, p2array[intCounter].chrCodPostal);
+            printf("\n\t\tCidade: \t");
+            printUnsCharString(20, p2array[intCounter].chrCidade);
+            printf("\n\t\tPaís: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrPais);
+            printf("\n");
+            printf("\n===================================================\n");
+            intFound++;
+
+
+        }
+    }
+
+    if (intFound == 0){
+        printf("\n..::Nenhuma correspondencia encontrada!");
+    }
+
+    else{
+        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
+
+        if(intFound >= 2){
+            printf("\n\n..::ATENÇÃO: Existem %d contatos com o mesmo Telefone!!", intFound);
+            printf("\n..::Não deve criar contatos com exatamente os mesmos paramêtros");
+        }
+
+    }
+
+    fflush(stdin);
+    printf("\n\n Pressiona qq tecla para sair: ");
+    getche();
+}
+
+void consultaMorada(struct contato *p2array, int intContactCounter){
+    int intFound = 0, intStringLength = 30, intStringPosition = 0,intCounter = 0;
+
+    unsigned char chrSearched[30];
+
+    fflush(stdin);
+
+    unsigned char chrUserInput = 0;
+    unsigned char *chrUserData = chrSearched;
+
+    clearArray(intStringLength,chrSearched);    //Limpa o array
+
+    clsKeyboardBuffer();
+
+    system("clear");
+    printf("Morada: ");
+    printUnsCharString(30,chrSearched);
+
+    //Entrada de dados
+    do {
+        chrUserInput = getche();
+        //Todos os caracteres
+        if ((chrUserInput > 32 && chrUserInput < 127) || (chrUserInput == 32) ) {
+            chrUserData[intStringPosition] = chrUserInput;
+            chrUserData[intStringPosition+1] = '\0';
+            intStringPosition++;
+        }
+            //Letras portuguesas linux
+        else if(chrUserInput == 195){
+            chrUserInput = linuxPTchar();
+            if(chrUserInput > 191 && chrUserInput < 255){
+                chrUserData[intStringPosition] = chrUserInput;
+                chrUserData[intStringPosition+1] = '\0';
+                intStringPosition++;
+            }else{
+                chrUserData[intStringPosition] = '\0';
+                system("clear");
+                printf("\nMorada: ");
+                printUnsCharString(30,chrSearched);
+            }
+
+        }
+            //Tecla de Enter
+        else if(chrUserInput == 10){
+            intStringPosition = intStringLength+1;
+        }
+            //Tecla de BackSpace
+        else if(chrUserInput == 127){
+            intStringPosition--;
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nMorada: ");
+            printUnsCharString(30,chrSearched);
+        }else{
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nMorada: ");
+            printUnsCharString(30,chrSearched);
+        }
+    } while (intStringPosition < intStringLength);
+
+    printf("\n\nDeseja pesquisar pela Morada: ");
+    printUnsCharString(30,chrSearched);
+    fflush(stdin);
+    getche();
+
+    system("clear");
+
+    printf("\n\n..::Resultado da pesquisa de: ");
+    printUnsCharString(30,chrSearched);
+    printf("\n===================================================\n");
+
+
+
+    //Percorrer contatos na memória
+    for(intCounter = 0; intCounter < intContactCounter; intCounter++){
+
+        //Comparar se a pesquisa é igual
+        if(memcmp(chrSearched, p2array[intCounter].chrMorada, 30) == 0){
+
+            printf("\n\n\t\tNome: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrNome);
+            printf("\n\t\tTelefone: \t");
+            printUnsCharString(10, p2array[intCounter].chrTelefone);
+            printf("\n\t\tMorada: \t");
+            printUnsCharString(30, p2array[intCounter].chrMorada);
+            printf("\n\t\tCódigo Postal: \t");
+            printUnsCharString(10, p2array[intCounter].chrCodPostal);
+            printf("\n\t\tCidade: \t");
+            printUnsCharString(20, p2array[intCounter].chrCidade);
+            printf("\n\t\tPaís: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrPais);
+            printf("\n");
+            printf("\n===================================================\n");
+            intFound++;
+
+
+        }
+    }
+
+    if (intFound == 0){
+        printf("\n..::Nenhuma correspondencia encontrada!");
+    }
+
+    else{
+        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
+
+    }
+
+    fflush(stdin);
+    printf("\n\n Pressiona qq tecla para sair: ");
+    getche();
+}
+
+void consultaCodPostal(struct contato *p2array, int intContactCounter){
+    int intFound = 0, intStringLength = 10, intStringPosition = 0,intCounter = 0;
+
+    unsigned char chrSearched[10];
+
+    fflush(stdin);
+
+    unsigned char chrUserInput = 0;
+    unsigned char *chrUserData = chrSearched;
+
+    clearArray(intStringLength,chrSearched);    //Limpa o array
+
+    clsKeyboardBuffer();
+
+    system("clear");
+    printf("Código Postal: ");
+    printUnsCharString(10,chrSearched);
+
+    //Entrada de dados
+    do {
+        chrUserInput = getche();
+
+        //Numeros Inteiros
+        if ((chrUserInput > 47 && chrUserInput < 58) || (chrUserInput == 45)) {
+            chrUserData[intStringPosition] = chrUserInput;
+            intStringPosition++;
+        }
+            //Letras portuguesas linux
+        else if(chrUserInput == 195){
+            chrUserInput = linuxPTchar();
+
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nCódigo Postal: ");
+            printUnsCharString(10,chrSearched);
+
+        }
+            //Tecla de Enter
+        else if(chrUserInput == 10 || chrUserInput == 13){
+            intStringPosition = intStringLength+1;
+        }
+            //Tecla de BackSpace
+        else if(chrUserInput == 127){
+            intStringPosition--;
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nCódigo Postal: ");
+            printUnsCharString(10,chrSearched);
+        }else{
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("\nCódigo Postal: ");
+            printUnsCharString(10,chrSearched);
+        }
+    }while (intStringPosition < intStringLength);
+
+    printf("\n\nDeseja pesquisar pelo Código Postal: ");
+    printUnsCharString(10,chrSearched);
+    fflush(stdin);
+    getche();
+
+    system("clear");
+
+    printf("\n\n..::Resultado da pesquisa de: ");
+    printUnsCharString(10,chrSearched);
+    printf("\n===================================================\n");
+
+
+
+    //Percorrer contatos na memória
+    for(intCounter = 0; intCounter < intContactCounter; intCounter++){
+
+        //Comparar se a pesquisa é igual
+        if(memcmp(chrSearched, p2array[intCounter].chrCodPostal, 10) == 0){
+
+            printf("\n\n\t\tNome: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrNome);
+            printf("\n\t\tTelefone: \t");
+            printUnsCharString(10, p2array[intCounter].chrTelefone);
+            printf("\n\t\tMorada: \t");
+            printUnsCharString(30, p2array[intCounter].chrMorada);
+            printf("\n\t\tCódigo Postal: \t");
+            printUnsCharString(10, p2array[intCounter].chrCodPostal);
+            printf("\n\t\tCidade: \t");
+            printUnsCharString(20, p2array[intCounter].chrCidade);
+            printf("\n\t\tPaís: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrPais);
+            printf("\n");
+            printf("\n===================================================\n");
+            intFound++;
+
+
+        }
+    }
+
+    if (intFound == 0){
+        printf("\n..::Nenhuma correspondencia encontrada!");
+    }
+
+    else{
+        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
+
+    }
+
+    fflush(stdin);
+    printf("\n\n Pressiona qq tecla para sair: ");
+    getche();
+}
+
+void consultaCidade(struct contato *p2array, int intContactCounter){
+    int intFound = 0, intStringLength = 20, intStringPosition = 0,intCounter = 0;
+
+    unsigned char chrSearched[20];
+
+    fflush(stdin);
+
+    unsigned char chrUserInput = 0;
+    unsigned char *chrUserData = chrSearched;
+
+    clearArray(intStringLength,chrSearched);    //Limpa o array
+
+    clsKeyboardBuffer();
+
+    system("clear");
+    printf("Cidade: ");
+    printUnsCharString(20,chrSearched);
+
+    //Entrada de dados
+    do {
+        chrUserInput = getche();
+        //Letras Minúsculas + espaço +  Letras Maiusculas
+        if ((chrUserInput > 96 && chrUserInput < 123) || (chrUserInput == 32) ||(chrUserInput > 64 && chrUserInput < 91)) {
+            chrUserData[intStringPosition] = chrUserInput;
+            chrUserData[intStringPosition+1] = 0;
+            intStringPosition++;
+        }
+            //Letras portuguesas minusculas linux
+        else if(chrUserInput == 195){
+            chrUserInput = linuxPTchar();
+            if((chrUserInput > 223 && chrUserInput < 255) || (chrUserInput > 191 && chrUserInput < 222)){
+                chrUserData[intStringPosition] = chrUserInput;
+                chrUserData[intStringPosition+1] = '\0';
+                intStringPosition++;
+            }else{
+                chrUserData[intStringPosition] = '\0';
+                system("clear");
+                printf("Cidade: ");
+                printUnsCharString(20,chrSearched);
+            }
+
+        }
+            //Tecla de Enter
+        else if(chrUserInput == 10){
+            intStringPosition = intStringLength+1;
+        }
+            //Tecla de BackSpace
+        else if(chrUserInput == 127){
+            chrUserData[intStringPosition] = '\0';
+            intStringPosition--;
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("Cidade: ");
+            printUnsCharString(20,chrSearched);
+        }else{
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("Cidade: ");
+            printUnsCharString(20,chrSearched);
+        }
+    } while (intStringPosition < intStringLength);
+
+    printf("\n\nDeseja pesquisar pela Cidade: ");
+    printUnsCharString(20,chrSearched);
+    fflush(stdin);
+    getche();
+
+    system("clear");
+
+    printf("\n\n..::Resultado da pesquisa de: ");
+    printUnsCharString(20,chrSearched);
+    printf("\n===================================================\n");
+
+
+
+    //Percorrer contatos na memória
+    for(intCounter = 0; intCounter < intContactCounter; intCounter++){
+
+        //Comparar se a pesquisa é igual
+        if(memcmp(chrSearched, p2array[intCounter].chrCidade, 20) == 0){
+
+            printf("\n\n\t\tNome: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrNome);
+            printf("\n\t\tTelefone: \t");
+            printUnsCharString(10, p2array[intCounter].chrTelefone);
+            printf("\n\t\tMorada: \t");
+            printUnsCharString(30, p2array[intCounter].chrMorada);
+            printf("\n\t\tCódigo Postal: \t");
+            printUnsCharString(10, p2array[intCounter].chrCodPostal);
+            printf("\n\t\tCidade: \t");
+            printUnsCharString(20, p2array[intCounter].chrCidade);
+            printf("\n\t\tPaís: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrPais);
+            printf("\n");
+            printf("\n===================================================\n");
+            intFound++;
+
+
+        }
+    }
+
+    if (intFound == 0){
+        printf("\n..::Nenhuma correspondencia encontrada!");
+    }
+
+    else{
+        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
+
+    }
+
+    fflush(stdin);
+    printf("\n\n Pressiona qq tecla para sair: ");
+    getche();
+}
+
+void consultaPais(struct contato *p2array, int intContactCounter){
+    int intFound = 0, intStringLength = 20, intStringPosition = 0,intCounter = 0;
+
+    unsigned char chrSearched[20];
+
+    fflush(stdin);
+
+    unsigned char chrUserInput = 0;
+    unsigned char *chrUserData = chrSearched;
+
+    clearArray(intStringLength,chrSearched);    //Limpa o array
+
+    clsKeyboardBuffer();
+
+    system("clear");
+    printf("País: ");
+    printUnsCharString(20,chrSearched);
+
+    //Entrada de dados
+    do {
+        chrUserInput = getche();
+        //Letras Minúsculas + espaço +  Letras Maiusculas
+        if ((chrUserInput > 96 && chrUserInput < 123) || (chrUserInput == 32) ||(chrUserInput > 64 && chrUserInput < 91)) {
+            chrUserData[intStringPosition] = chrUserInput;
+            chrUserData[intStringPosition+1] = 0;
+            intStringPosition++;
+        }
+            //Letras portuguesas minusculas linux
+        else if(chrUserInput == 195){
+            chrUserInput = linuxPTchar();
+            if((chrUserInput > 223 && chrUserInput < 255) || (chrUserInput > 191 && chrUserInput < 222)){
+                chrUserData[intStringPosition] = chrUserInput;
+                chrUserData[intStringPosition+1] = '\0';
+                intStringPosition++;
+            }else{
+                chrUserData[intStringPosition] = '\0';
+                system("clear");
+                printf("País: ");
+                printUnsCharString(20,chrSearched);
+            }
+
+        }
+            //Tecla de Enter
+        else if(chrUserInput == 10){
+            intStringPosition = intStringLength+1;
+        }
+            //Tecla de BackSpace
+        else if(chrUserInput == 127){
+            chrUserData[intStringPosition] = '\0';
+            intStringPosition--;
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("País: ");
+            printUnsCharString(20,chrSearched);
+        }else{
+            chrUserData[intStringPosition] = '\0';
+            system("clear");
+            printf("País: ");
+            printUnsCharString(20,chrSearched);
+        }
+    } while (intStringPosition < intStringLength);
+
+    printf("\n\nDeseja pesquisar pelo País: ");
+    printUnsCharString(20,chrSearched);
+    fflush(stdin);
+    getche();
+
+    system("clear");
+
+    printf("\n\n..::Resultado da pesquisa de: ");
+    printUnsCharString(20,chrSearched);
+    printf("\n===================================================\n");
+
+
+
+    //Percorrer contatos na memória
+    for(intCounter = 0; intCounter < intContactCounter; intCounter++){
+
+        //Comparar se a pesquisa é igual
+        if(memcmp(chrSearched, p2array[intCounter].chrPais, 20) == 0){
+
+            printf("\n\n\t\tNome: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrNome);
+            printf("\n\t\tTelefone: \t");
+            printUnsCharString(10, p2array[intCounter].chrTelefone);
+            printf("\n\t\tMorada: \t");
+            printUnsCharString(30, p2array[intCounter].chrMorada);
+            printf("\n\t\tCódigo Postal: \t");
+            printUnsCharString(10, p2array[intCounter].chrCodPostal);
+            printf("\n\t\tCidade: \t");
+            printUnsCharString(20, p2array[intCounter].chrCidade);
+            printf("\n\t\tPaís: \t\t");
+            printUnsCharString(20, p2array[intCounter].chrPais);
+            printf("\n");
+            printf("\n===================================================\n");
+            intFound++;
+
+
+        }
+    }
+
+    if (intFound == 0){
+        printf("\n..::Nenhuma correspondencia encontrada!");
+    }
+
+    else{
+        printf("\n..::%d correspondencia(s) encontrada(s)!", intFound);
+
+    }
+
+    fflush(stdin);
+    printf("\n\n Pressiona qq tecla para sair: ");
+    getche();
+}
+
+

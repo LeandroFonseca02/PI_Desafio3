@@ -32,10 +32,14 @@ void paisContato(int intContactCounter,struct contato *p2array,int intStringLeng
 struct contato *criarContato(struct contato *p2array, int intContactCounter);
 void consultaSequencial(struct contato *p2array, int intContactCounter);
 void listaContatos(struct contato *p2array, int intContactCounter);
-void consultaAtributos();
+void consultaAtributos(struct contato *p2array, int intContactCounter);
 void modificarContato();
 void removerContato();
 struct contato *apagarFileContatos(struct contato *p2array);
 void sobrePrograma();
-void consultaNome();
-
+void consultaNome(struct contato *p2array, int intContactCounter);
+void consultaTelefone(struct contato *p2array, int intContactCounter);
+void consultaMorada(struct contato *p2array, int intContactCounter);
+void consultaCodPostal(struct contato *p2array, int intContactCounter);
+void consultaCidade(struct contato *p2array, int intContactCounter);
+void consultaPais(struct contato *p2array, int intContactCounter);
