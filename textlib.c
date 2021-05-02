@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "textlib.h"
 
-void printMainMenu() {
+
+void printMainMenu(){
+    system("clear");
     printf(PROGRAM_TITLE);
     printf(MAINMENU_TITLE);
     printf(MAINMENU_TITLE_SEPARADOR);
@@ -16,4 +18,29 @@ void printMainMenu() {
     printf(MAINMENU_OPTION_0);
     printf(MAINMENU_TITLE_SEPARADOR);
     printf(MAINMENU_USER_OPTION);
+}
+void printUnsCharString(int intLength, unsigned char chrString[intLength]){
+    int intCounter = 0;
+
+    for (intCounter = 0; intCounter < intLength; intCounter++){
+
+        if(chrString[intCounter] != '\0'){
+            printf("%lc", chrString[intCounter]);
+        }else{
+            intCounter = intLength + 1;
+        }
+    }
+}
+void printOption4Menu(){
+    system("clear");
+    printf(OPTION4_TITLE);
+    printf(OPTION4_SEPARADOR);
+    printf(OPTION4_NAME);
+    printf(OPTION4_PHONENUMBER);
+    printf(OPTION4_ADRESS);
+    printf(OPTION4_CP);
+    printf(OPTION4_CITY);
+    printf(OPTION4_COUNTRY);
+    printf(OPTION4_SEPARADOR);
+    printf(OPTION4_CHOOSE);
 }

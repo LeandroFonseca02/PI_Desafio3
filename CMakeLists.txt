@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.17)
 project(PI_Desafio3 C)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 99)
 
-add_executable(PI_Desafio3 textlib.c main.c)
+add_executable(PI_Desafio3 coniolinux.c textlib.c contatos.c main.c)
 
