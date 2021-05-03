@@ -33,7 +33,7 @@ struct contato *criarContato(struct contato *p2array, int intContactCounter);
 void consultaSequencial(struct contato *p2array, int intContactCounter);
 void listaContatos(struct contato *p2array, int intContactCounter);
 void consultaAtributos(struct contato *p2array, int intContactCounter);
-void modificarContato();
+void modificarContato(struct contato *p2array, int intContactCounter);
 void removerContato();
 struct contato *apagarFileContatos(struct contato *p2array);
 void sobrePrograma();

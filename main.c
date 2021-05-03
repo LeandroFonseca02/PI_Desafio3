@@ -5,12 +5,12 @@
 //Opção 2 - Completamente feito
 //Opção 3 - Completamente feito
 //Opção 4 - Completamente feito
-//Opção 5 -
+//Opção 5 - Completamente feito
 //Opção 6 -
-//Opção 7 -
+//Opção 7 - Completamente feito
 //Opção 8 - Fazer qualquer coisa
 
-//Fazer ajustes graficos
+//Fazer ajustes graficos em tudos
 
 
 
@@ -60,10 +60,10 @@ int main()
                 consultaAtributos(p2array,intContactCounter);
                 break;
 
-//            case '5':
-//                modificarContato();
-//                break;
-//
+            case '5':
+                modificarContato(p2array, intContactCounter);
+                break;
+
 //            case '6':
 //                removerContato();
 //                break;

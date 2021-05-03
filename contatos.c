@@ -330,82 +330,124 @@ void consultaAtributos(struct contato *p2array, int intContactCounter){
 
 }
 
-//void modificarContato(){
-//
-//    FILE *fp, *ft;
-//    unsigned char chrToSearch[30];
-//
-//    system("clear");
-//
-//    fp=fopen("leandro.dat","r");
-//
-//    ft=fopen("temp.dat","w");
-//
-//    fflush(stdin);
-//
-//    printf("..::Edit contact\n===============================\n\n\t..::Enter the name of contact to edit:");
-//
-//    scanf("%s",chrToSearch);
-//
-//    while(fread(&lista,sizeof(lista),1,fp)==1)
-//
-//    {
-//        if(memcmp(chrToSearch, lista.chrNome, 20) == 0){
-//            fwrite(&lista,sizeof(lista),1,ft);
-//        }
-//    }
-//
-//    fflush(stdin);
-//
-//    printf("\n\n..::Editing '%s'\n\n",chrToSearch);
-//
-//    printf("..::Nome(Use identical):");
-//
-//    scanf("%s",lista.chrNome);
-//
-//    fflush(stdin);
-//
-//    printf("..::Número de telefone:");
-//
-//    scanf("%s",lista.chrTelefone);
-//
-//    fflush(stdin);
-//
-//    printf("..::Morada:");
-//
-//    scanf("%s",lista.chrMorada);
-//
-//    fflush(stdin);
-//
-//    printf("..::Código Postal:");
-//
-//    scanf("%s",lista.chrCodPostal);
-//
-//    fflush(stdin);
-//
-//    printf("..::Cidade:");
-//
-//    scanf("%s",lista.chrCidade);
-//
-//    fflush(stdin);
-//
-//    printf("..::País:");
-//
-//    scanf("%s",lista.chrPais);
-//
-//    printf("\n");
-//
-//    fwrite(&lista,sizeof(lista),1,ft);
-//
-//    fclose(fp);
-//
-//    fclose(ft);
-//
-//    remove("leandro.dat");
-//
-//    rename("temp.dat","leandro.dat");
-//}
-//
+void modificarContato(struct contato *p2array, int intContactCounter){
+
+    int intCounter = 0, intFound = 0;
+    unsigned char chrInput = '\0';
+
+    fflush(stdin);
+    intFound=0;
+
+    clsKeyboardBuffer();    //Limpar buffer
+
+    //Verificar se o array está vazio
+    if(p2array == NULL){
+        system("clear");
+
+        printf("\n\t\t================================\n\t\t\tModificar contatos\n\t\t================================");
+        printf("\n\n\n===================================================================================================");
+
+
+        printf("\n\n---> Não existem contatos na sua lista de contatos!");
+        printf("\nDICA: Para criar contatos escolha a Opção 1 do Menu Principal");
+        printf("\n\n..::Pressione qualquer tecla para continuar");
+        fflush(stdin);
+        getche();
+        return;
+    }
+
+
+    //Ler os contatos da memória
+    for(intCounter = 0; intCounter < intContactCounter; ) {
+        system("clear");
+
+        printf("\n\t\t================================\n\t\t\tModificar Contato\n\t\t================================");
+        printf("\n\n\n===================================================================================================");
+
+
+        printf("\n\n\t\tNome: \t\t");
+        printUnsCharString(20, p2array[intCounter].chrNome);
+        printf("\n\t\tTelefone: \t");
+        printUnsCharString(10, p2array[intCounter].chrTelefone);
+        printf("\n\t\tMorada: \t");
+        printUnsCharString(30, p2array[intCounter].chrMorada);
+        printf("\n\t\tCódigo Postal: \t");
+        printUnsCharString(10, p2array[intCounter].chrCodPostal);
+        printf("\n\t\tCidade: \t");
+        printUnsCharString(20, p2array[intCounter].chrCidade);
+        printf("\n\t\tPaís: \t\t");
+        printUnsCharString(20, p2array[intCounter].chrPais);
+        printf("\n");
+        printf("\n\n===================================================================================================\n");
+        printf("Para avançar para o contato seguinte prima '0'\n");
+        printf("Para recuar para o contato anterior prima '1'\n");
+        printf("Para editar o contato prima 'Delete'\n");
+        printf("Para voltar para o menu principal prima 'Enter'\n");
+
+
+        fflush(stdin);
+        chrInput = getche();
+
+        //Premir tecla delete para editar
+        if(chrInput == 127)
+        {
+            nomeContato(20,p2array[intCounter].chrNome);  //Entrada/Validação de dados para Nome
+            fflush(stdin);
+
+            numeroTelefone(intCounter, p2array,10,p2array[intCounter].chrTelefone);   //Entrada/Validação de dados para Telefone
+            fflush(stdin);
+
+            moradaContato(intCounter, p2array,30,p2array[intCounter].chrMorada);  //Entrada/Validação de dados para Morada
+            fflush(stdin);
+
+            codPostalContato(intCounter, p2array,10,p2array[intCounter].chrCodPostal);    //Entrada/Validação de dados para Codigo Postal
+            fflush(stdin);
+
+            cidadeContato(intCounter, p2array,20,p2array[intCounter].chrCidade);  //Entrada/Validação de dados para Cidade
+            fflush(stdin);
+
+            paisContato(intCounter, p2array,20,p2array[intCounter].chrPais);  //Entrada/Validação de dados para Pais
+            fflush(stdin);
+
+
+            printf("\n\n---> Contato modificado com sucesso!");
+            printf("\n..::Pressione qualquer tecla para continuar");
+            getche();
+
+
+
+        }
+        //Premir tecla 0 para avançar contato
+        else if(chrInput == 48){
+            //Se não der para voltar mais para tras volta para o fim
+            if(intCounter == intContactCounter - 1 ){
+                intCounter = 0;
+                intFound++;
+            }else{
+                intCounter++;
+                intFound++;
+            }
+            //Premir tecla 1 para recuar contato
+        }else if(chrInput == 49){
+            //Se não der para voltar mais para tras volta para o fim
+            if(intCounter == 0){
+                intCounter = intContactCounter - 1;
+                intFound++;
+            }else{
+                intCounter--;
+                intFound++;
+            }
+            //Premir Enter para sair da lista
+        }else if(chrInput == 10){
+            break;
+        }else{
+
+        }
+
+    }
+
+}
+
 //void removerContato(){
 //
 //    FILE *fp, *ft;
