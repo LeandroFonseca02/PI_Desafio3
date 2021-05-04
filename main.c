@@ -60,7 +60,7 @@ int main()
 
             case '6':
                 p2array = removerContato(p2array, intContactCounter);
-                intContactCounter = contactMemoryCounting(p2array, intContactCounter);
+                (p2array == NULL) ? intContactCounter = 0: intContactCounter == contactMemoryCounting(p2array, intContactCounter);
                 break;
 
             case '7':

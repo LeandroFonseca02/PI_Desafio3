@@ -537,14 +537,25 @@ struct contato *removerContato(struct contato *p2array, int intContactCounter){
                 for (intCounter; intCounter < intContactCounter; intCounter++) {
 
                     if (intCounter == intContactCounter - 1) {
-                        p2array = realloc(p2array, (intCounter) * sizeof(contatos));
-                        printf("\n\n---> Contato apagado com sucesso!");
-                        printf("\n..::Pressione qualquer tecla para continuar");
-                        clsKeyboardBuffer();
-                        fflush(stdin);
-                        getche();
-                        return p2array;
-                    } else {
+                        if(intCounter == 0){
+                            p2array = NULL;
+                            printf("\n\n---> Contato apagado com sucesso!");
+                            printf("\n..::Pressione qualquer tecla para continuar");
+                            clsKeyboardBuffer();
+                            fflush(stdin);
+                            getche();
+                            return p2array;
+                        }else{
+                            p2array = realloc(p2array, (intCounter+1) * sizeof(contatos));
+                            printf("\n\n---> Contato apagado com sucesso!");
+                            printf("\n..::Pressione qualquer tecla para continuar");
+                            clsKeyboardBuffer();
+                            fflush(stdin);
+                            getche();
+                            return p2array;
+                        }
+
+                    }else{
                         p2array[intCounter] = p2array[intCounter + 1];
                     }
 
