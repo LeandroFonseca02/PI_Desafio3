@@ -218,7 +218,7 @@ void consultaSequencial(struct contato *p2array, int intContactCounter){
                 intFound++;
             }
         //Premir Enter para sair da lista
-        }else if(chrInput == 10){
+        }else if((chrInput == 10) || (chrInput == 12)){
             break;
         }else{
 
@@ -455,7 +455,7 @@ void modificarContato(struct contato *p2array, int intContactCounter){
                 intFound++;
             }
             //Premir Enter para sair da lista
-        }else if(chrInput == 10){
+        }else if((chrInput == 10) || (chrInput == 12)){
             break;
         }else{
 
@@ -581,7 +581,7 @@ struct contato *removerContato(struct contato *p2array, int intContactCounter){
                 intFound++;
             }
             //Premir Enter para sair da lista
-        }else if(chrInput == 10){
+        }else if((chrInput == 10) || (chrInput == 12)){
             break;
         }else{
 
@@ -752,7 +752,7 @@ void nomeContato(int intStringLength, unsigned char chrData[intStringLength]){
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -815,7 +815,7 @@ void numeroTelefone(int intContactCounter,struct contato *p2array,int intStringL
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10 || chrUserInput == 13){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -890,7 +890,7 @@ void moradaContato(int intContactCounter,struct contato *p2array,int intStringLe
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -968,7 +968,7 @@ void codPostalContato(int intContactCounter,struct contato *p2array,int intStrin
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10 || chrUserInput == 13){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1059,7 +1059,7 @@ void cidadeContato(int intContactCounter,struct contato *p2array,int intStringLe
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1159,7 +1159,7 @@ void paisContato(int intContactCounter,struct contato *p2array,int intStringLeng
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1253,7 +1253,7 @@ void consultaNome(struct contato *p2array, int intContactCounter){
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1370,7 +1370,7 @@ void consultaTelefone(struct contato *p2array, int intContactCounter){
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10 || chrUserInput == 13){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1493,7 +1493,7 @@ void consultaMorada(struct contato *p2array, int intContactCounter){
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1606,7 +1606,7 @@ void consultaCodPostal(struct contato *p2array, int intContactCounter){
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10 || chrUserInput == 13){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1724,7 +1724,7 @@ void consultaCidade(struct contato *p2array, int intContactCounter){
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
@@ -1843,7 +1843,7 @@ void consultaPais(struct contato *p2array, int intContactCounter){
 
         }
             //Tecla de Enter
-        else if(chrUserInput == 10){
+        else if((chrUserInput == 10) || (chrUserInput == 12)){
             intStringPosition = intStringLength+1;
         }
             //Tecla de BackSpace
