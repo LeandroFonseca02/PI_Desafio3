@@ -1,5 +1,11 @@
 #include "contatos.h"
 
+#ifdef _WIN32
+#define CLEAR "cls"
+#else //In any other OS
+#define CLEAR "clear"
+#endif
+
 
 //----->Funções de alocação de memoria
 
@@ -78,7 +84,16 @@ void writeContactFile(struct contato *p2array, int intContactCounter){
     fclose(fp);
 }
 
+int contactMemoryCounting(struct contato *p2array, int intContactCounter){
+    int intCounter = 0, structsize = 0, arraysize = 0;
 
+    structsize = sizeof(struct contato);
+    arraysize = ((size_t*)p2array)[-1];
+
+    intCounter = arraysize / structsize;
+
+    return intCounter;
+}
 
 //----->Funçoes de manipulação de contatos
 
@@ -88,7 +103,7 @@ void writeContactFile(struct contato *p2array, int intContactCounter){
 struct contato *criarContato(struct contato *p2array, int intContactCounter){
 
     //Limpar terminal
-    system("clear");
+    system(CLEAR);
 
     fflush(stdin);  //Limpa buffer
 
@@ -135,7 +150,7 @@ void consultaSequencial(struct contato *p2array, int intContactCounter){
 
     //Verificar se o array está vazio
     if(p2array == NULL){
-        system("clear");
+        system(CLEAR);
 
         printf("\n\t\t================================\n\t\t\tConsulta Sequencial\n\t\t================================");
         printf("\n\n\n===================================================================================================");
@@ -153,7 +168,7 @@ void consultaSequencial(struct contato *p2array, int intContactCounter){
     //Ler os contatos da memória
     for(intCounter = 0; intCounter < intContactCounter; )
     {
-        system("clear");
+        system(CLEAR);
 
         printf("\n\t\t================================\n\t\t\tConsulta Sequencial\n\t\t================================");
         printf("\n\n\n===================================================================================================");
@@ -219,7 +234,7 @@ void listaContatos(struct contato *p2array, int intContactCounter){
 
     clsKeyboardBuffer();    //Limpar buffer
 
-    system("clear");
+    system(CLEAR);
 
     printf("\n\t\t================================\n\t\t\tLista de Contatos\n\t\t================================");
     printf("\n\n\n===================================================================================================");
@@ -283,7 +298,7 @@ void consultaAtributos(struct contato *p2array, int intContactCounter){
 
     int intFound = 0, intLength = 20, intCounter = 0, intChoice = 0;
 
-    system("clear");
+    system(CLEAR);
     clsKeyboardBuffer();
 
     if(p2array == NULL){
@@ -323,8 +338,10 @@ void consultaAtributos(struct contato *p2array, int intContactCounter){
         default:
             printf("\nOpção inválida!");
             printf("\n--->Clique em qq tecla para voltar ao menu");
+            clsKeyboardBuffer();
             fflush(stdin);
             getche();
+            system(CLEAR);
             break;
     }
 
@@ -342,7 +359,7 @@ void modificarContato(struct contato *p2array, int intContactCounter){
 
     //Verificar se o array está vazio
     if(p2array == NULL){
-        system("clear");
+        system(CLEAR);
 
         printf("\n\t\t================================\n\t\t\tModificar contatos\n\t\t================================");
         printf("\n\n\n===================================================================================================");
@@ -359,7 +376,7 @@ void modificarContato(struct contato *p2array, int intContactCounter){
 
     //Ler os contatos da memória
     for(intCounter = 0; intCounter < intContactCounter; ) {
-        system("clear");
+        system(CLEAR);
 
         printf("\n\t\t================================\n\t\t\tModificar Contato\n\t\t================================");
         printf("\n\n\n===================================================================================================");
@@ -448,76 +465,169 @@ void modificarContato(struct contato *p2array, int intContactCounter){
 
 }
 
-//void removerContato(){
-//
-//    FILE *fp, *ft;
-//    unsigned char chrToSearch[30];
-//
-//    system("clear");
-//
-//    fflush(stdin);
-//
-//    printf("\n\n\t..::DELETE A CONTACT\n\t==========================\n\t..::Enter the name of contact to delete:");
-//
-//    scanf("%s",chrToSearch);
-//
-//    fp=fopen("leandro.dat","r");
-//
-//    ft=fopen("temp.dat","w");
-//
-//    while(fread(&lista,sizeof(lista),1,fp)!=0)
-//
-//        if (strcmp(chrToSearch,lista.chrNome)!=0){
-//            fwrite(&lista,sizeof(lista),1,ft);
-//        }
-//
-//
-//
-//    fclose(fp);
-//
-//    fclose(ft);
-//
-//    remove("leandro.dat");
-//
-//    rename("temp.dat","leandro.dat");
-//
-//}
+struct contato *removerContato(struct contato *p2array, int intContactCounter){
+
+    int intCounter = 0, intFound = 0;
+    unsigned char chrInput = '\0';
+
+    fflush(stdin);
+    intFound=0;
+
+    clsKeyboardBuffer();    //Limpar buffer
+
+    //Verificar se o array está vazio
+    if(p2array == NULL){
+        system(CLEAR);
+
+        printf("\n\t\t================================\n\t\t\tApagar contatos\n\t\t================================");
+        printf("\n\n\n===================================================================================================");
+
+
+        printf("\n\n---> Não existem contatos na sua lista de contatos!");
+        printf("\nDICA: Para criar contatos escolha a Opção 1 do Menu Principal");
+        printf("\n\n..::Pressione qualquer tecla para continuar");
+        fflush(stdin);
+        getche();
+        return p2array;
+    }
+
+
+    //Ler os contatos da memória
+    for(intCounter = 0; intCounter < intContactCounter; ) {
+        system(CLEAR);
+
+        printf("\n\t\t================================\n\t\t\tApagar Contatos\n\t\t================================");
+        printf("\n\n\n===================================================================================================");
+
+
+        printf("\n\n\t\tNome: \t\t");
+        printUnsCharString(20, p2array[intCounter].chrNome);
+        printf("\n\t\tTelefone: \t");
+        printUnsCharString(10, p2array[intCounter].chrTelefone);
+        printf("\n\t\tMorada: \t");
+        printUnsCharString(30, p2array[intCounter].chrMorada);
+        printf("\n\t\tCódigo Postal: \t");
+        printUnsCharString(10, p2array[intCounter].chrCodPostal);
+        printf("\n\t\tCidade: \t");
+        printUnsCharString(20, p2array[intCounter].chrCidade);
+        printf("\n\t\tPaís: \t\t");
+        printUnsCharString(20, p2array[intCounter].chrPais);
+        printf("\n");
+        printf("\n\n===================================================================================================\n");
+        printf("Para avançar para o contato seguinte prima '0'\n");
+        printf("Para recuar para o contato anterior prima '1'\n");
+        printf("Para apagar o contato prima 'Delete'\n");
+        printf("Para voltar para o menu principal prima 'Enter'\n");
+
+
+        fflush(stdin);
+        chrInput = getche();
+
+        //Premir tecla delete para apagar
+        if(chrInput == 127) {
+            printf("\n\nTêm a certeza que deseja apagar o contato?");
+            printf("\n\t\t[1] Sim\n");
+            printf("\t\t[2] Não\n\n");
+            printf("Digite a opção que deseja selecionar: ");
+            scanf("%c", &chrInput);
+
+
+            //Confirmar apagar contato
+            if (chrInput == 49) {
+                for (intCounter; intCounter < intContactCounter; intCounter++) {
+
+                    if (intCounter == intContactCounter - 1) {
+                        p2array = realloc(p2array, (intCounter) * sizeof(contatos));
+                        printf("\n\n---> Contato apagado com sucesso!");
+                        printf("\n..::Pressione qualquer tecla para continuar");
+                        clsKeyboardBuffer();
+                        fflush(stdin);
+                        getche();
+                        return p2array;
+                    } else {
+                        p2array[intCounter] = p2array[intCounter + 1];
+                    }
+
+                }
+            //Nao alterar nada
+            }else if (chrInput == 50){
+                printf("\n\n---> Contato mantém-se intacto!");
+                printf("\n..::Pressione qualquer tecla para continuar");
+                clsKeyboardBuffer();
+                fflush(stdin);
+                getche();
+            }else{
+            }
+
+        }
+            //Premir tecla 0 para avançar contato
+        else if(chrInput == 48){
+            //Se não der para ir mais para frente volta para o inicio
+            if(intCounter == intContactCounter - 1 ){
+                intCounter = 0;
+                intFound++;
+            }else{
+                intCounter++;
+                intFound++;
+            }
+            //Premir tecla 1 para recuar contato
+        }else if(chrInput == 49){
+            //Se não der para voltar mais para tras volta para o fim
+            if(intCounter == 0){
+                intCounter = intContactCounter - 1;
+                intFound++;
+            }else{
+                intCounter--;
+                intFound++;
+            }
+            //Premir Enter para sair da lista
+        }else if(chrInput == 10){
+            break;
+        }else{
+
+        }
+
+        }
+
+
+    return p2array;
+}
 
 //Apaga ficheiro de contatos e contatos da memória (retorna NULL)
 struct contato *apagarFileContatos(struct contato *p2array){
-    int intChoice = 0;
+    char chrChoice = '\0';
     FILE *fp;
 
 
-    system("clear");
+    system(CLEAR);
     printf("AVISO! Ao eliminar o ficheiro que contém os contatos, perderá permanentemente os seus contatos!\n");
     printf("================================================================================================================\n\n");
     printf("Deseja eliminar o ficheiro de contatos?\n");
     printf("\t\t[1] Sim\n");
     printf("\t\t[2] Não\n\n");
     printf("Digite a opção que deseja selecionar: ");
-    scanf("%d", &intChoice);
+    scanf(" %c", &chrChoice);
     fflush(stdin);
 
     //Verificar opção do user
-    if(intChoice != 1){
+    if(chrChoice != 49){
         printf("\n\nFicheiro de contatos mantém-se intacto!");
         printf("\n..::Pressione qualquer tecla para continuar");
         clsKeyboardBuffer();    //Limpar buffer
         getche();
     }else{
-        system("clear");
+        system(CLEAR);
         printf("AVISO! Ao eliminar o ficheiro que contém os contatos, perderá permanentemente os seus contatos!\n");
         printf("================================================================================================================\n\n");
         printf("Tem a certeza que deseja eliminar o ficheiro de contatos?\n");
         printf("\t\t[1] Não\n");
         printf("\t\t[2] Sim\n\n");
         printf("Digite a opção que deseja selecionar: ");
-        scanf("%d", &intChoice);
+        scanf(" %c", &chrChoice);
         fflush(stdin);
 
         //Verificar se o user deseja eliminar contatos
-        if(intChoice == 2){
+        if(chrChoice == 50){
             //Verificar se existe ficheiro
             if((fp = fopen("leandro.dat","r"))!=NULL)
             {
@@ -554,8 +664,15 @@ struct contato *apagarFileContatos(struct contato *p2array){
 
 //Display de algumas informações do programa
 void sobrePrograma(){
-    system("clear");
-    printf("teste");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tSobre o Programa\n\t\t================================");
+    printf("\n\n\n===================================================================================================");
+    printf("\n\t  Este programa foi desenvolvido por Leandro Fonseca na disciplina de Programação Imperativa do curso de Engenharia Informática do Ismat pelo docente Francisco José de Melo Pereira.");
+    printf("\n\n\t  O intuito do programa é ser um gestor de contatos na qual os contatos ficam guardados no ficheiro \"leandro.dat\".");
+    printf("\n\t  Ao iniciar o programa lê todos os contatos que se encontram no ficheiro e copia-los para a memória, na qual onde vão ser trabalhados \n\tnum array de structs com memória alocada dinâmica até ao fim da execução do programa, ou seja, as alterações dos contatos só seram gravadas se o programa terminar de forma regular.");
+    printf("\n\n..::Pressione qualquer tecla para continuar");
+
+    clsKeyboardBuffer();
     getche();
 }
 
@@ -604,7 +721,8 @@ void nomeContato(int intStringLength, unsigned char chrData[intStringLength]){
 
     clearArray(intStringLength,chrData);    //Limpa o array
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
     printf("Nome: ");
     printUnsCharString(20,chrData);
 
@@ -626,7 +744,8 @@ void nomeContato(int intStringLength, unsigned char chrData[intStringLength]){
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
                 printf("Nome: ");
                 printUnsCharString(20,chrData);
             }
@@ -641,12 +760,14 @@ void nomeContato(int intStringLength, unsigned char chrData[intStringLength]){
             chrUserData[intStringPosition] = '\0';
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,chrData);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,chrData);
         }
@@ -664,7 +785,8 @@ void numeroTelefone(int intContactCounter,struct contato *p2array,int intStringL
 
     clearArray(intStringLength,chrData);    //Limpa o array
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
     printf("Nome: ");
     printUnsCharString(20,p2array[intContactCounter].chrNome);
     printf("\nNumero de telemovel: ");
@@ -684,7 +806,8 @@ void numeroTelefone(int intContactCounter,struct contato *p2array,int intStringL
             chrUserInput = linuxPTchar();
 
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -699,14 +822,16 @@ void numeroTelefone(int intContactCounter,struct contato *p2array,int intStringL
         else if(chrUserInput == 127){
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
             printUnsCharString(10,chrData);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -726,7 +851,8 @@ void moradaContato(int intContactCounter,struct contato *p2array,int intStringLe
 
     clearArray(intStringLength,chrData);
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
     printf("Nome: ");
     printUnsCharString(20,p2array[intContactCounter].chrNome);
     printf("\nNumero de telemovel: ");
@@ -752,7 +878,8 @@ void moradaContato(int intContactCounter,struct contato *p2array,int intStringLe
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
                 printf("Nome: ");
                 printUnsCharString(20,p2array[intContactCounter].chrNome);
                 printf("\nNumero de telemovel: ");
@@ -770,7 +897,8 @@ void moradaContato(int intContactCounter,struct contato *p2array,int intStringLe
         else if(chrUserInput == 127){
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -779,7 +907,8 @@ void moradaContato(int intContactCounter,struct contato *p2array,int intStringLe
             printUnsCharString(30,chrData);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -801,7 +930,8 @@ void codPostalContato(int intContactCounter,struct contato *p2array,int intStrin
 
     clearArray(intStringLength,chrData);    //Limpa o array
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
     printf("Nome: ");
     printUnsCharString(20,p2array[intContactCounter].chrNome);
     printf("\nNumero de telemovel: ");
@@ -825,7 +955,8 @@ void codPostalContato(int intContactCounter,struct contato *p2array,int intStrin
             chrUserInput = linuxPTchar();
 
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -844,7 +975,8 @@ void codPostalContato(int intContactCounter,struct contato *p2array,int intStrin
         else if(chrUserInput == 127){
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -855,7 +987,8 @@ void codPostalContato(int intContactCounter,struct contato *p2array,int intStrin
             printUnsCharString(10,chrData);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -879,7 +1012,8 @@ void cidadeContato(int intContactCounter,struct contato *p2array,int intStringLe
 
     clearArray(intStringLength,chrData);    //Limpa o array
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
     printf("Nome: ");
     printUnsCharString(20,p2array[intContactCounter].chrNome);
     printf("\nNumero de telemovel: ");
@@ -909,7 +1043,8 @@ void cidadeContato(int intContactCounter,struct contato *p2array,int intStringLe
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
                 printf("Nome: ");
                 printUnsCharString(20,p2array[intContactCounter].chrNome);
                 printf("\nNumero de telemovel: ");
@@ -932,7 +1067,8 @@ void cidadeContato(int intContactCounter,struct contato *p2array,int intStringLe
             chrUserData[intStringPosition] = '\0';
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -945,7 +1081,8 @@ void cidadeContato(int intContactCounter,struct contato *p2array,int intStringLe
             printUnsCharString(20,chrData);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -971,7 +1108,8 @@ void paisContato(int intContactCounter,struct contato *p2array,int intStringLeng
 
     clearArray(intStringLength,chrData);    //Limpa o array
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
     printf("Nome: ");
     printUnsCharString(20,p2array[intContactCounter].chrNome);
     printf("\nNumero de telemovel: ");
@@ -1003,7 +1141,8 @@ void paisContato(int intContactCounter,struct contato *p2array,int intStringLeng
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
                 printf("Nome: ");
                 printUnsCharString(20,p2array[intContactCounter].chrNome);
                 printf("\nNumero de telemovel: ");
@@ -1028,7 +1167,8 @@ void paisContato(int intContactCounter,struct contato *p2array,int intStringLeng
             chrUserData[intStringPosition] = '\0';
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -1043,7 +1183,8 @@ void paisContato(int intContactCounter,struct contato *p2array,int intStringLeng
             printUnsCharString(20,chrData);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tContato\n\t\t================================\n\n");
             printf("Nome: ");
             printUnsCharString(20,p2array[intContactCounter].chrNome);
             printf("\nNumero de telemovel: ");
@@ -1081,7 +1222,8 @@ void consultaNome(struct contato *p2array, int intContactCounter){
 
     clsKeyboardBuffer();
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tPesquisa Nome\n\t\t================================\n\n");
     printf("Nome: ");
     printUnsCharString(20,chrSearched);
 
@@ -1103,7 +1245,8 @@ void consultaNome(struct contato *p2array, int intContactCounter){
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tPesquisa Nome\n\t\t================================\n\n");
                 printf("Nome: ");
                 printUnsCharString(20,chrSearched);
             }
@@ -1118,12 +1261,12 @@ void consultaNome(struct contato *p2array, int intContactCounter){
             chrUserData[intStringPosition] = '\0';
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
             printf("Nome: ");
             printUnsCharString(20,chrSearched);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
             printf("Nome: ");
             printUnsCharString(20,chrSearched);
         }
@@ -1134,7 +1277,7 @@ void consultaNome(struct contato *p2array, int intContactCounter){
     fflush(stdin);
     getche();
 
-    system("clear");
+    system(CLEAR);
 
     printf("\n\n..::Resultado da pesquisa de: ");
     printUnsCharString(20,chrSearched);
@@ -1201,7 +1344,8 @@ void consultaTelefone(struct contato *p2array, int intContactCounter){
 
     clsKeyboardBuffer();
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tPesquisa Telefone\n\t\t================================\n\n");
     printf("Telefone: ");
     printUnsCharString(10,chrSearched);
 
@@ -1219,7 +1363,8 @@ void consultaTelefone(struct contato *p2array, int intContactCounter){
             chrUserInput = linuxPTchar();
 
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Telefone\n\t\t================================\n\n");
             printf("\nTelefone: ");
             printUnsCharString(10,chrSearched);
 
@@ -1232,12 +1377,14 @@ void consultaTelefone(struct contato *p2array, int intContactCounter){
         else if(chrUserInput == 127){
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Telefone\n\t\t================================\n\n");
             printf("\nTelefone: ");
             printUnsCharString(10,chrSearched);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Telefone\n\t\t================================\n\n");
             printf("\nTelefone: ");
             printUnsCharString(10,chrSearched);
         }
@@ -1248,7 +1395,7 @@ void consultaTelefone(struct contato *p2array, int intContactCounter){
     fflush(stdin);
     getche();
 
-    system("clear");
+    system(CLEAR);
 
     printf("\n\n..::Resultado da pesquisa de: ");
     printUnsCharString(10,chrSearched);
@@ -1315,7 +1462,8 @@ void consultaMorada(struct contato *p2array, int intContactCounter){
 
     clsKeyboardBuffer();
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tPesquisa Morada\n\t\t================================\n\n");
     printf("Morada: ");
     printUnsCharString(30,chrSearched);
 
@@ -1337,7 +1485,8 @@ void consultaMorada(struct contato *p2array, int intContactCounter){
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tPesquisa Morada\n\t\t================================\n\n");
                 printf("\nMorada: ");
                 printUnsCharString(30,chrSearched);
             }
@@ -1351,12 +1500,14 @@ void consultaMorada(struct contato *p2array, int intContactCounter){
         else if(chrUserInput == 127){
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Morada\n\t\t================================\n\n");
             printf("\nMorada: ");
             printUnsCharString(30,chrSearched);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Morada\n\t\t================================\n\n");
             printf("\nMorada: ");
             printUnsCharString(30,chrSearched);
         }
@@ -1367,7 +1518,7 @@ void consultaMorada(struct contato *p2array, int intContactCounter){
     fflush(stdin);
     getche();
 
-    system("clear");
+    system(CLEAR);
 
     printf("\n\n..::Resultado da pesquisa de: ");
     printUnsCharString(30,chrSearched);
@@ -1429,7 +1580,8 @@ void consultaCodPostal(struct contato *p2array, int intContactCounter){
 
     clsKeyboardBuffer();
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tPesquisa Código Postal\n\t\t================================\n\n");
     printf("Código Postal: ");
     printUnsCharString(10,chrSearched);
 
@@ -1447,7 +1599,8 @@ void consultaCodPostal(struct contato *p2array, int intContactCounter){
             chrUserInput = linuxPTchar();
 
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Código Postal\n\t\t================================\n\n");
             printf("\nCódigo Postal: ");
             printUnsCharString(10,chrSearched);
 
@@ -1460,12 +1613,14 @@ void consultaCodPostal(struct contato *p2array, int intContactCounter){
         else if(chrUserInput == 127){
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Código Postal\n\t\t================================\n\n");
             printf("\nCódigo Postal: ");
             printUnsCharString(10,chrSearched);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Código Postal\n\t\t================================\n\n");
             printf("\nCódigo Postal: ");
             printUnsCharString(10,chrSearched);
         }
@@ -1476,7 +1631,7 @@ void consultaCodPostal(struct contato *p2array, int intContactCounter){
     fflush(stdin);
     getche();
 
-    system("clear");
+    system(CLEAR);
 
     printf("\n\n..::Resultado da pesquisa de: ");
     printUnsCharString(10,chrSearched);
@@ -1538,7 +1693,8 @@ void consultaCidade(struct contato *p2array, int intContactCounter){
 
     clsKeyboardBuffer();
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tPesquisa Cidade\n\t\t================================\n\n");
     printf("Cidade: ");
     printUnsCharString(20,chrSearched);
 
@@ -1560,7 +1716,8 @@ void consultaCidade(struct contato *p2array, int intContactCounter){
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tPesquisa Cidade\n\t\t================================\n\n");
                 printf("Cidade: ");
                 printUnsCharString(20,chrSearched);
             }
@@ -1575,12 +1732,14 @@ void consultaCidade(struct contato *p2array, int intContactCounter){
             chrUserData[intStringPosition] = '\0';
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Cidade\n\t\t================================\n\n");
             printf("Cidade: ");
             printUnsCharString(20,chrSearched);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa Cidade\n\t\t================================\n\n");
             printf("Cidade: ");
             printUnsCharString(20,chrSearched);
         }
@@ -1591,7 +1750,7 @@ void consultaCidade(struct contato *p2array, int intContactCounter){
     fflush(stdin);
     getche();
 
-    system("clear");
+    system(CLEAR);
 
     printf("\n\n..::Resultado da pesquisa de: ");
     printUnsCharString(20,chrSearched);
@@ -1653,7 +1812,8 @@ void consultaPais(struct contato *p2array, int intContactCounter){
 
     clsKeyboardBuffer();
 
-    system("clear");
+    system(CLEAR);
+    printf("\n\t\t================================\n\t\t\tPesquisa País\n\t\t================================\n\n");
     printf("País: ");
     printUnsCharString(20,chrSearched);
 
@@ -1675,7 +1835,8 @@ void consultaPais(struct contato *p2array, int intContactCounter){
                 intStringPosition++;
             }else{
                 chrUserData[intStringPosition] = '\0';
-                system("clear");
+                system(CLEAR);
+                printf("\n\t\t================================\n\t\t\tPesquisa País\n\t\t================================\n\n");
                 printf("País: ");
                 printUnsCharString(20,chrSearched);
             }
@@ -1690,12 +1851,14 @@ void consultaPais(struct contato *p2array, int intContactCounter){
             chrUserData[intStringPosition] = '\0';
             intStringPosition--;
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa País\n\t\t================================\n\n");
             printf("País: ");
             printUnsCharString(20,chrSearched);
         }else{
             chrUserData[intStringPosition] = '\0';
-            system("clear");
+            system(CLEAR);
+            printf("\n\t\t================================\n\t\t\tPesquisa País\n\t\t================================\n\n");
             printf("País: ");
             printUnsCharString(20,chrSearched);
         }
@@ -1706,7 +1869,7 @@ void consultaPais(struct contato *p2array, int intContactCounter){
     fflush(stdin);
     getche();
 
-    system("clear");
+    system(CLEAR);
 
     printf("\n\n..::Resultado da pesquisa de: ");
     printUnsCharString(20,chrSearched);

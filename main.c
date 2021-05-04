@@ -1,17 +1,11 @@
 #include <locale.h>
 #include "contatos.h"
 
-//Opção 1 - Completamente feito
-//Opção 2 - Completamente feito
-//Opção 3 - Completamente feito
-//Opção 4 - Completamente feito
-//Opção 5 - Completamente feito
-//Opção 6 -
-//Opção 7 - Completamente feito
-//Opção 8 - Fazer qualquer coisa
-
-//Fazer ajustes graficos em tudos
-
+#ifdef _WIN32
+#define CLEAR "cls"
+#else //In any other OS
+#define CLEAR "clear"
+#endif
 
 
 int main()
@@ -30,11 +24,11 @@ int main()
 
 
 
-
     while(intExit != 1){
 
         printMainMenu();
         scanf(" %c",&chrMenuOption);
+
 
         switch(chrMenuOption){
 
@@ -64,20 +58,28 @@ int main()
                 modificarContato(p2array, intContactCounter);
                 break;
 
-//            case '6':
-//                removerContato();
-//                break;
-//
-            case '7':
-                p2array = apagarFileContatos(p2array);
+            case '6':
+                p2array = removerContato(p2array, intContactCounter);
+                intContactCounter = contactMemoryCounting(p2array, intContactCounter);
                 break;
 
-//            case '8':
-//                sobrePrograma();
-//                break;
-//
+            case '7':
+                p2array = apagarFileContatos(p2array);
+                (p2array == NULL) ? intContactCounter = 0: intContactCounter;
+                break;
+
+            case '8':
+                writeContactFile(p2array,intContactCounter);
+                break;
+
+            case '9':
+                sobrePrograma();
+                break;
+
             default:
-                printf("Invalid choice");
+                clsKeyboardBuffer();
+                fflush(stdin);
+                system(CLEAR);
                 break;
 
         }

@@ -13,7 +13,8 @@
 #define MAINMENU_OPTION_5 "\t\t\t[5] Modificar contatos\n"
 #define MAINMENU_OPTION_6 "\t\t\t[6] Remover contato\n"
 #define MAINMENU_OPTION_7 "\t\t\t[7] Apagar lista de contatos\n"
-#define MAINMENU_OPTION_8 "\t\t\t[8] Sobre o programa\n"
+#define MAINMENU_OPTION_8 "\t\t\t[8] Salvar alterações no ficheiro\n"
+#define MAINMENU_OPTION_9 "\t\t\t[9] Sobre o programa\n"
 #define MAINMENU_OPTION_0 "\t\t\t[0] Sair do programa\n"
 #define MAINMENU_USER_OPTION "\n\t\t\tDigite a opção que deseja: "
 
@@ -25,7 +26,7 @@
 #define OPTION4_ADRESS "\t\t\t[3] Morada\n"
 #define OPTION4_CP "\t\t\t[4] Código Postal\n"
 #define OPTION4_CITY "\t\t\t[5] Cidade\n"
-#define OPTION4_COUNTRY "\t\t\t[6] País\n"
+#define OPTION4_COUNTRY "\t\t\t[6] País\n\n"
 #define OPTION4_CHOOSE "\n\t..::Escolha o atributo pelo qual deseja encontrar o contato: "
 
 

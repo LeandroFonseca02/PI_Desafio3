@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "coniolinux.h"
 #include "textlib.h"
+
+#ifdef _WIN32
+#include <conio.h>
+#else
+#include "coniolinux.h"
+#endif
 
 typedef struct contato{
     unsigned char chrNome[20],chrTelefone[10],chrMorada[30],chrCodPostal[10],chrCidade[20],chrPais[20];
@@ -14,7 +19,7 @@ typedef struct contato{
 int contactFileCounting();
 struct contato *allocContact(struct contato *p2array);
 void writeContactFile(struct contato *p2array, int intContactCounter);
-
+int contactMemoryCounting(struct contato *p2array, int intContactCounter);
 
 
 /*Protótipos das funçoes de validação de dados*/
@@ -34,7 +39,7 @@ void consultaSequencial(struct contato *p2array, int intContactCounter);
 void listaContatos(struct contato *p2array, int intContactCounter);
 void consultaAtributos(struct contato *p2array, int intContactCounter);
 void modificarContato(struct contato *p2array, int intContactCounter);
-void removerContato();
+struct contato *removerContato(struct contato *p2array, int intContactCounter);
 struct contato *apagarFileContatos(struct contato *p2array);
 void sobrePrograma();
 void consultaNome(struct contato *p2array, int intContactCounter);
