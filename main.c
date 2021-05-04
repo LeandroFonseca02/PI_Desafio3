@@ -1,3 +1,19 @@
+/*
+Ismat - Engenheria Informática 1º Ano
+Programação Imperativa - Prof. Francisco Pereira
+Leandro Fonseca
+19/04/2021 - 17:47
+Resumo: Programa de gerenciamento de contatos com alocaçao de memoria dinamica
+Inputs:
+Outputs:
+ */
+
+
+//ATENÇÃO O PROGRAMA FOI FEITO EM LINUX E NÃO FOI TESTADO NO WINDOWS
+//PODE HAVER ALGUMA DIFERENÇA EM TERMOS DE KEYINPUTS
+//SE TIVER PROBLEMAS RETIRAR coniolinux
+
+
 #include <locale.h>
 #include "contatos.h"
 
