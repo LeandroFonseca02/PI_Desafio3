@@ -4,7 +4,7 @@ Programação Imperativa - Prof. Francisco Pereira
 Leandro Fonseca
 19/04/2021 - 17:47
 Resumo: Programa de gerenciamento de contatos com alocaçao de memoria dinamica
-Inputs:
+Inputs: a
 Outputs:
  */
 
